@@ -1,0 +1,124 @@
+header {
+	background-color: #d9d9d9;
+	margin-bottom: 30px;
+	padding: 1.5em;
+}
+h1 {
+	font-family: Helvetica, Verdana;
+	font-size: 3em;
+	text-align: center;
+	color: white;
+}
+.flex-container {
+	display: -webkit-flex;
+	display: flex;
+	width: 40%;
+	height: 700px;
+	background-color: #003366;
+	border-radius: 15px;
+	flex-direction: row;
+	flex-wrap: wrap;
+	float: left;
+}
+.flex-item {
+	background-color: #d9d9d9;
+	width: 40%;
+	height: 160px;
+	margin: auto;
+	border-radius: 15px;
+	font-family: Helvetica, Verdana;
+	text-align: center; 
+}
+.wait {
+	padding: 20px;
+	margin: 0 auto;
+}
+input[type=text] {
+	outline: none;
+	border-radius: 5px;
+	display: block;
+	width: 60%;
+	height: 30px;
+	margin: 0 auto; 
+	font-size: 1.3em;
+	font-family: Helevetica, Verdana;
+}
+.andSome {
+	display: -webkit-flex;
+	display: flex;
+	float: right;
+	margin: auto;
+	height: 1000px;
+	width: 55%;
+	background-color: #003366;
+	border-radius: 15px;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.canvas {
+	background-color: white;
+	width: 51%;
+	height: 350px;
+	border: 5px solid #800040;
+	border-radius: 15px;
+	margin: auto;
+	-webkit-transition-duration: 0.4s;
+	transition-duration: 0.4s;
+}
+.canvas:hover {
+	border: 5px solid white;
+}
+.submitVal {
+	margin: 10px;
+	border: 3px solid #800040;
+	border-radius: 5px;
+	background-color: #800040;
+	font-family: Helevetica, Verdana;
+	color: #ffffe6;
+	font-size: 1.5em;
+	height: 35px;
+	-webkit-transition-duration: 0.4s;
+	transition-duration: 0.4s;
+}
+.submitVal:hover {
+	background-color: white;
+	color: #800040;
+}
+input[type=range] {
+  	-webkit-appearance: none;
+  	margin: 10px 0;
+  	width: 100%;
+}
+input[type=range]:focus {
+  	outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+	width: 70%;
+	height: 5px;
+  	cursor: pointer;
+  	animate: 0.2s;
+  	background: #800040;
+  	border-radius: 1px;
+  	border: 0px solid #800040;
+}
+input[type=range]::-webkit-slider-thumb {
+	border: 3px solid #800040;
+	height: 18px;
+	width: 18px;
+	border-radius: 25px;
+	background: #900600;
+	cursor: pointer;
+	-webkit-appearance: none;
+	margin-top: -7px;
+	-webkit-transition-duration: 0.4s;
+	transition-duration: 0.4s;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+	background: #800040;
+}
+input[type=range]:hover::-webkit-slider-thumb {
+	background: white;
+}
+input[type=range]:active::-webkit-slider-thumb {
+	background: white;
+}
