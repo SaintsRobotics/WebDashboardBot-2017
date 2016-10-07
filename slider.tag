@@ -1,5 +1,5 @@
 <slider>
-	<div class="flex-item" each={ items }>
+	<div  class="flex-item" each={ items }>
 		<p class="wait">
 		
 		<form>
@@ -15,7 +15,8 @@
     this.items = [
     { title: 'Speed', min: 0, max: 10, value: 5 },
     { title: 'Arm', min: 0, max: 10, value:5 },
-    { title: 'Leg', min: 0, max: 100, value:60 }
+    { title: 'Leg', min: 0, max: 100, value:60 },
+    { title: 'Beauty', min: 0, max:20, value:10 }
     ]
     
   </script>
