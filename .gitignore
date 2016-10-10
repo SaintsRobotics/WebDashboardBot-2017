@@ -1,4 +1,5 @@
 build/*
 dist/*
 bin/*
-.idea/*
+.idea/*.project 
+.project
