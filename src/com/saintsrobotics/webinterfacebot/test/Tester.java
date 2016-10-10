@@ -1,4 +1,4 @@
-package com.saintsrobotics.webinterfacebot.util;
+package com.saintsrobotics.webinterfacebot.test;
 
-import com.saintsrobotics.webinterfacebot.Task;
-import com.saintsrobotics.webinterfacebot.TaskRunner;
+import com.saintsrobotics.webinterfacebot.util.Task;
+import com.saintsrobotics.webinterfacebot.util.TaskRunner;
