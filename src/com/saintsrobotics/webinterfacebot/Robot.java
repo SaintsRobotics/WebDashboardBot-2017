@@ -37,17 +37,7 @@ public class Robot extends IterativeRobot {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	Task[] tasks = {new Task(){
-        	public void run(){
-        		System.out.println("It's working!");
-        		yield(()->{return true;});
-        		System.out.println("Never say die");
-        		yield(()->{return false;});
-        		System.out.println("No man shall see this line. But I am gnome ann.");
-        	}
-        }
-    	};
-        runner = new TaskRunner(tasks);
+    	
     }
     
     public void autonomousInit() {
