@@ -39,6 +39,7 @@ public class WebInterface extends WebSocketServer {
 	}
 	public String getField(String field){
 		return values.getString(field);
+		
 	}
 	public void debug(String message){
 		JSONObject debug = new JSONObject()
