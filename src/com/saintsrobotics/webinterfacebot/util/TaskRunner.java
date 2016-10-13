@@ -19,7 +19,7 @@ public class TaskRunner{
         while(list.hasNext()){
             Task task = list.next();
             if(task.iterator == null) task.iterator = task.iterator();
-            if(task.waiter != null && !task.waiter.getAsBoolean())
+            if(task.waiter != null && task.waiter.getAsBoolean())
                 if(task.iterator.hasNext())
                     task.waiter=task.iterator.next();
                 else

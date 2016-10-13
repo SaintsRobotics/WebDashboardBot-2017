@@ -1,6 +1,7 @@
 package com.saintsrobotics.webinterfacebot.test;
 
 import java.util.Iterator;
+import java.util.function.BooleanSupplier;
 import java.util.function.IntSupplier;
 
 import com.saintsrobotics.webinterfacebot.util.Task;
@@ -29,6 +30,10 @@ public class Tester{
         	}
         }
     	};
+		Iterator<BooleanSupplier> i = tasks[0].iterator();
+		while(i.hasNext()){
+			System.out.println(i.next().getAsBoolean());
+		}
         TaskRunner runner = new TaskRunner(tasks);
         log("runner created");
         while(true){
