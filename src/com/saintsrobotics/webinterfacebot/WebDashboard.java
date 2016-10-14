@@ -70,6 +70,7 @@ public class WebDashboard extends WebSocketServer {
 					return;
 				}
 			}
+			things = json.getJSONObject(changeKey).keys();
 			while(things.hasNext()){
 				String key = things.next();
 				changeValues.getJSONObject(key).put("value", json.getJSONObject(changeKey).get(key));
@@ -89,6 +90,7 @@ public class WebDashboard extends WebSocketServer {
 					return;
 				}
 			}
+			things = json.getJSONObject(changeKey).keys();
 			while(things.hasNext()){
 				String key = things.next();
 				changeValues.getJSONObject(key).put("value", json.getJSONObject(changeKey).get(key));
