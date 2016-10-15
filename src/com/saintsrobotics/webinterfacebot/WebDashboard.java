@@ -94,13 +94,23 @@ public class WebDashboard extends WebSocketServer {
 					}
 				}
 				things = json.getJSONObject(changeKey).keys();
+				
+			}
+			json.put("type", "confirm");
+			conn.send(json.toString());
+			while(keys.hasNext()){
+				String changeKey = keys.next();
+				if(changeKey.equals("type")){
+					changeKey = keys.next();
+				}
+				JSONObject changeValues = values.getJSONObject(changeKey);
+				Iterator<String> things = json.getJSONObject(changeKey).keys();
 				while(things.hasNext()){
 					String key = things.next();
 					changeValues.getJSONObject(key).put("value", json.getJSONObject(changeKey).get(key));
 				}
 			}
-			json.put("type", "confirm");
-			conn.send(json.toString());
+			
 		}else if(json.getString("type").equals("error")){
 			//welp
 		}
