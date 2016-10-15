@@ -57,43 +57,47 @@ public class WebDashboard extends WebSocketServer {
 		JSONObject json = new JSONObject(message);
 		if(json.getString("type").equals("confirm")){
 			Iterator<String> keys =json.keys();
-			String changeKey = keys.next();
-			if(changeKey.equals("type")){
-				changeKey = keys.next();
-			}
-			JSONObject changeValues = values.getJSONObject(changeKey);
-			Iterator<String> things = json.getJSONObject(changeKey).keys();
-			while(things.hasNext()){
-				String key = things.next();
-				if(!changeValues.has(key) || !changeValues.getJSONObject(key).getBoolean("server-writable")){
-					conn.send("{'type':'error','message':'I never told you to do that'}");
-					return;
+			while(keys.hasNext()){
+				String changeKey = keys.next();
+				if(changeKey.equals("type")){
+					changeKey = keys.next();
 				}
-			}
-			things = json.getJSONObject(changeKey).keys();
-			while(things.hasNext()){
-				String key = things.next();
-				changeValues.getJSONObject(key).put("value", json.getJSONObject(changeKey).get(key));
+				JSONObject changeValues = values.getJSONObject(changeKey);
+				Iterator<String> things = json.getJSONObject(changeKey).keys();
+				while(things.hasNext()){
+					String key = things.next();
+					if(!changeValues.has(key) || !changeValues.getJSONObject(key).getBoolean("server-writable")){
+						conn.send("{'type':'error','message':'I never told you to do that'}");
+						return;
+					}
+				}
+				things = json.getJSONObject(changeKey).keys();
+				while(things.hasNext()){
+					String key = things.next();
+					changeValues.getJSONObject(key).put("value", json.getJSONObject(changeKey).get(key));
+				}
 			}
 		}else if(json.getString("type").equals("delta")){
 			Iterator<String> keys=json.keys();
-			String changeKey = keys.next();
-			if(changeKey.equals("type")){
-				changeKey = keys.next();
-			}
-			JSONObject changeValues = values.getJSONObject(changeKey);
-			Iterator<String> things = json.getJSONObject(changeKey).keys();
-			while(things.hasNext()){
-				String key = things.next();
-				if(!changeValues.has(key) || changeValues.getJSONObject(key).getBoolean("server-writable")){
-					conn.send("{'type':'error','message':'You shouldn\\'nt be able to write to that'}");
-					return;
+			while(keys.hasNext()){
+				String changeKey = keys.next();
+				if(changeKey.equals("type")){
+					changeKey = keys.next();
 				}
-			}
-			things = json.getJSONObject(changeKey).keys();
-			while(things.hasNext()){
-				String key = things.next();
-				changeValues.getJSONObject(key).put("value", json.getJSONObject(changeKey).get(key));
+				JSONObject changeValues = values.getJSONObject(changeKey);
+				Iterator<String> things = json.getJSONObject(changeKey).keys();
+				while(things.hasNext()){
+					String key = things.next();
+					if(!changeValues.has(key) || changeValues.getJSONObject(key).getBoolean("server-writable")){
+						conn.send("{'type':'error','message':'You shouldn\\'nt be able to write to that'}");
+						return;
+					}
+				}
+				things = json.getJSONObject(changeKey).keys();
+				while(things.hasNext()){
+					String key = things.next();
+					changeValues.getJSONObject(key).put("value", json.getJSONObject(changeKey).get(key));
+				}
 			}
 			json.put("type", "confirm");
 			conn.send(json.toString());
