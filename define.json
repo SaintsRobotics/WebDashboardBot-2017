@@ -1,0 +1,12 @@
+{
+    "test":{
+        "test":{
+            "server-writable":true,
+            "value":"hi"
+        },
+        "woot":{
+            "server-writable":false,
+            "value":"toot"
+        }
+    }
+}
