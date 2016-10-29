@@ -7,12 +7,13 @@ import java.util.LinkedList;
 
 public class TaskRunner{
 	public LinkedList<Task> tasks;
-
+	private boolean disabled = false;
 	public TaskRunner(Task[] tasks){
 		this.tasks = new LinkedList<Task>();
 		this.tasks.addAll(Arrays.asList(tasks));
 	}
 	public void run(){
+		if(disabled) return;
 		Iterator<Task> list = tasks.iterator();
         while(list.hasNext()){
             Task task = list.next();
@@ -23,5 +24,8 @@ public class TaskRunner{
                 else
                     list.remove();
         }
+	}
+	public void disable(){
+		this.disabled = true;
 	}
 }
