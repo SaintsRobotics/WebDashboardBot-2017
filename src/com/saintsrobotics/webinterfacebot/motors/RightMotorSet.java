@@ -1,5 +1,5 @@
 package com.saintsrobotics.webinterfacebot.motors;
 
 public class RightMotorSet extends MotorSet {
-    public int RIGHT = 1;
+    public Motor RIGHT = Robot.motors.getMotor(0,true);
 }

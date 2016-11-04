@@ -21,8 +21,10 @@ public class TaskRunner{
             if(task.waiter != null && task.waiter.getAsBoolean())
                 if(task.iterator.hasNext())
                     task.waiter=task.iterator.next();
-                else
+                else{
+                	task.unrequire();
                     list.remove();
+                }
         }
 	}
 	public void disable(){

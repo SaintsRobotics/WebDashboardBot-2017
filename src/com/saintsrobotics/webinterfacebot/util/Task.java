@@ -26,6 +26,7 @@ public abstract class Task extends Generator<BooleanSupplier>{
     		return null;
     }
     public void unrequire(){
+    	if(motors == null) return;
     	motors.disable();
     	motors = null;
     }

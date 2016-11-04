@@ -16,7 +16,7 @@ public abstract class Motors {
      * @see MotorSet
      * */
     public Motor get(int pin, boolean inverted) throws MotorLockedException {
-       this.getTalon(pin, inverted);
+       return this.getTalon(pin, inverted);
     }
     /**
      * This method attempts to return the speedcontroller corresponding with the pin number, and locks it.
@@ -61,9 +61,10 @@ public abstract class Motors {
      * */
     public void unlock(int pin){
         motors[pin].stop();
-        lock[pin] = true;
+        lock[pin] = false;
     }
-    public void lock(int pin){
+    public void lock(int pin) throw MotorLockedException{
+        if(lock[pin]) throw new MotorLockedException();
         motors[pin].stop();
         lock[pin] = true;
     }
