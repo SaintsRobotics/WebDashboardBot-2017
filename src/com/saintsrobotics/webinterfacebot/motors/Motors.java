@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.Victor;
 
 public static class Motors {
     private static Motor[] motors = new Motor[100];
-    private static boolean[] lock = new boolean[100];
+    private static boolean[] locks = new boolean[100];
 
 
     /**
@@ -28,7 +28,7 @@ public static class Motors {
      * 
     */
     public static Motor getJaguar(int pin, boolean inverted) throws MotorLockedException {
-        if(lock[pin]) throw new MotorLockedException();
+        if(locks[pin]) throw new MotorLockedException();
         if (motors[pin] == null) {
             motors[pin] = new Motor(new Jaguar(pin), pin, inverted);
         }
@@ -48,7 +48,7 @@ public static class Motors {
      *  @throws com.saintsrobotics.webinterfacebot.MotorLockedException  if the motor is already locked.
     */
     public static Motor getTalon(int pin, boolean inverted) throws MotorLockedException{
-        if(lock[pin]) throw new MotorLockedException();
+        if(locks[pin]) throw new MotorLockedException();
         if (motors[pin] == null) {
             motors[pin] = new Motor(new Talon(pin), pin, inverted);
         }
@@ -61,12 +61,12 @@ public static class Motors {
      * */
     public static void unlock(int pin){
         motors[pin].stop();
-        lock[pin] = false;
+        locks[pin] = false;
     }
     public static void lock(int pin) throw MotorLockedException{
         if(lock[pin]) throw new MotorLockedException();
         motors[pin].stop();
-        lock[pin] = true;
+        locks[pin] = true;
     }
     
 

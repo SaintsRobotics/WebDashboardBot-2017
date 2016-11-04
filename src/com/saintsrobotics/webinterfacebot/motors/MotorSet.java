@@ -8,9 +8,11 @@ public abstract class MotorSet{
         int[] motorsTemp = new int[fields.length];
         for(int i = 0; i < fields.length; i++){
             motorsTemp[i] = ((Motor)fields[i].getObject(motors)).getPin();
-            Motors.lock(motors.motors[i]);
+            if(Motors.locks[motorsTemp[i]]) throw new MotorLockedException();
         }
-        
+        for(int i : motorsTemp){
+            Motors.lock(i);
+        }
         this.motors = motorsTemp;
         motors.enabled = true;
     }
