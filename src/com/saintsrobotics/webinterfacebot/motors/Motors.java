@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 
-public abstract class Motors {
-    private Motor[] motors = new Motor[100];
-    private boolean[] lock = new boolean[100];
+public static class Motors {
+    private static Motor[] motors = new Motor[100];
+    private static boolean[] lock = new boolean[100];
 
 
     /**
@@ -15,8 +15,8 @@ public abstract class Motors {
      * @see #getTalon()
      * @see MotorSet
      * */
-    public Motor get(int pin, boolean inverted) throws MotorLockedException {
-       return this.getTalon(pin, inverted);
+    public static Motor get(int pin, boolean inverted) throws MotorLockedException {
+       return getTalon(pin, inverted);
     }
     /**
      * This method attempts to return the speedcontroller corresponding with the pin number, and locks it.
@@ -27,7 +27,7 @@ public abstract class Motors {
      *  @see com.saintsrobotics.webinterfacebot.MotorLockedException
      * 
     */
-    public Motor getJaguar(int pin, boolean inverted) throws MotorLockedException {
+    public static Motor getJaguar(int pin, boolean inverted) throws MotorLockedException {
         if(lock[pin]) throw new MotorLockedException();
         if (motors[pin] == null) {
             motors[pin] = new Motor(new Jaguar(pin), pin, inverted);
@@ -47,7 +47,7 @@ public abstract class Motors {
      * 
      *  @throws com.saintsrobotics.webinterfacebot.MotorLockedException  if the motor is already locked.
     */
-    public Motor getTalon(int pin, boolean inverted) throws MotorLockedException{
+    public static Motor getTalon(int pin, boolean inverted) throws MotorLockedException{
         if(lock[pin]) throw new MotorLockedException();
         if (motors[pin] == null) {
             motors[pin] = new Motor(new Talon(pin), pin, inverted);
@@ -59,11 +59,11 @@ public abstract class Motors {
      * 
      * @param   pin   pwm pin number of motor to unlock
      * */
-    public void unlock(int pin){
+    public static void unlock(int pin){
         motors[pin].stop();
         lock[pin] = false;
     }
-    public void lock(int pin) throw MotorLockedException{
+    public static void lock(int pin) throw MotorLockedException{
         if(lock[pin]) throw new MotorLockedException();
         motors[pin].stop();
         lock[pin] = true;

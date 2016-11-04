@@ -8,7 +8,7 @@ public abstract class MotorSet{
         int[] motorsTemp = new int[fields.length];
         for(int i = 0; i < fields.length; i++){
             motorsTemp[i] = ((Motor)fields[i].getObject(motors)).getPin();
-            Robot.motors.lock(motors.motors[i]);
+            Motors.lock(motors.motors[i]);
         }
         
         this.motors = motorsTemp;
@@ -16,7 +16,7 @@ public abstract class MotorSet{
     }
     public void disable(){
         for(int i : motors){
-            Robot.motors.unlock(i);
+            Motors.unlock(i);
             this.enabled = false;
         }
     }
