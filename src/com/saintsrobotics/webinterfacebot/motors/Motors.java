@@ -5,9 +5,6 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 
 public abstract class Motors {
-
-    public abstract Motor LEFT();
-    public abstract Motor RIGHT();
     private Motor[] motors = new Motor[100];
     private boolean[] lock = new boolean[100];
 
