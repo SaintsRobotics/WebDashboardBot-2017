@@ -3,6 +3,10 @@ public abstract class MotorSet{
     private int[] motors;
     private boolean enabled = false;
     
+    /**
+     * Adds a lock to the motors specified in this class to @link Motors ,
+     * preventing two @link MotorSet from attempting to access the same motors
+     */
     public void enable() throws MotorLockedException{
         Field[] fields = motors.getClass().getDeclaredFields();
         int[] motorsTemp = new int[fields.length];
@@ -16,6 +20,7 @@ public abstract class MotorSet{
         this.motors = motorsTemp;
         motors.enabled = true;
     }
+    /* Unlock the motors associated with this MotorSet */
     public void disable(){
         for(int i : motors){
             Motors.unlock(i);
