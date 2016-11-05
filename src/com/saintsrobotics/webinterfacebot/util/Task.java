@@ -2,6 +2,9 @@ package com.saintsrobotics.webinterfacebot.util;
 
 import com.zoominfo.util.yieldreturn.Generator;
 
+import com.saintsrobotics.webinterfacebot.motors.MotorSet;
+import com.saintsrobotics.webinterfacebot.motors.MotorLockedException;
+
 import java.util.Iterator;
 import java.util.function.BooleanSupplier;
 public abstract class Task extends Generator<BooleanSupplier>{
@@ -16,7 +19,7 @@ public abstract class Task extends Generator<BooleanSupplier>{
 	 * Pass a motorset to the Task and enable it
 	 * @param motors A @link MotorSet that will be locked and accessable through @link #motors()
 	 * */
-	protected void require(MotorSet motors){
+	protected void require(MotorSet motors) throws MotorLockedException{
         motors = motors;
         motors.enable();
     }

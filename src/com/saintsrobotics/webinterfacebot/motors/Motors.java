@@ -1,12 +1,13 @@
 package com.saintsrobotics.webinterfacebot.motors;
 
+import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 
-public static class Motors {
+public class Motors {
     private static Motor[] motors = new Motor[100];
-    private static boolean[] locks = new boolean[100];
+    public static boolean[] locks = new boolean[100];
 
 
     /**
@@ -15,7 +16,7 @@ public static class Motors {
      * @see #getTalon()
      * @see MotorSet
      * */
-    public static Motor get(int pin, boolean inverted) throws MotorLockedException {
+    public static Motor get(int pin, boolean inverted) {
        return getTalon(pin, inverted);
     }
     /**
@@ -24,11 +25,11 @@ public static class Motors {
      * It will throw a @link MotorLockedException if the motor is already locked.
      * This method defaults to Jaguars when constructing new motors.
      * Please don't call this if you don't know what you're doing, use @link com.saintsrobotics.webinterfacebot.motors.MotorSet instead, which automagically locks and unlocks the motors for you.
-     *  @see com.saintsrobotics.webinterfacebot.MotorLockedException
+     *  @see com.saintsrobotics.webinterfacebot.motors.MotorLockedException
      * 
     */
-    public static Motor getJaguar(int pin, boolean inverted) throws MotorLockedException {
-        if(locks[pin]) throw new MotorLockedException();
+    public static Motor getJaguar(int pin, boolean inverted) {
+        if(locks[pin]) return null;
         if (motors[pin] == null) {
             motors[pin] = new Motor(new Jaguar(pin), pin, inverted);
         }
@@ -45,10 +46,10 @@ public static class Motors {
      * @param   inverted    If this motors should be inverted
      * @return  The motor requested.
      * 
-     *  @throws com.saintsrobotics.webinterfacebot.MotorLockedException  if the motor is already locked.
+     *  @throws com.saintsrobotics.webinterfacebot.motors.MotorLockedException  if the motor is already locked.
     */
-    public static Motor getTalon(int pin, boolean inverted) throws MotorLockedException{
-        if(locks[pin]) throw new MotorLockedException();
+    public static Motor getTalon(int pin, boolean inverted){
+        if(locks[pin]) return null;
         if (motors[pin] == null) {
             motors[pin] = new Motor(new Talon(pin), pin, inverted);
         }
@@ -63,45 +64,11 @@ public static class Motors {
         motors[pin].stop();
         locks[pin] = false;
     }
-    public static void lock(int pin) throw MotorLockedException{
-        if(lock[pin]) throw new MotorLockedException();
+    public static void lock(int pin) throws MotorLockedException{
+        if(locks[pin]) throw new MotorLockedException();
         motors[pin].stop();
         locks[pin] = true;
     }
     
 
-    public class Motor {
-
-        private SpeedController motor;
-        private int pin;
-        /**
-         * Wraps a motor object
-         * @param motor a speedcontroller object that represents the motor
-         * @param pin the number of the pin
-         * @param inverted 
-         * */
-        public Motor(SpeedController motor, int pin, boolean inverted) {
-            this.motor = motor;
-            this.pin = pin;
-            motor.setInverted(inverted);
-        }
-
-        public double get() {
-            return motor.get();
-        }
-        
-        public int getPin(){
-            return this.pin;
-        }
-
-        public void set(double speed) {
-            motor.set(speed);
-        }
-        /**
-         * Immediately stops the motor
-         * */
-        public void stop(){
-            
-        }
-    }
 }

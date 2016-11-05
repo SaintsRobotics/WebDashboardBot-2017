@@ -1,4 +1,7 @@
-import java.util.reflection;
+package com.saintsrobotics.webinterfacebot.motors;
+
+
+import java.lang.reflect.Field;
 public abstract class MotorSet{
     private int[] motors;
     private boolean enabled = false;
@@ -11,14 +14,18 @@ public abstract class MotorSet{
         Field[] fields = motors.getClass().getDeclaredFields();
         int[] motorsTemp = new int[fields.length];
         for(int i = 0; i < fields.length; i++){
-            motorsTemp[i] = ((Motor)fields[i].getObject(motors)).getPin();
+            try {
+				motorsTemp[i] = ((Motor)(fields[i].get(this))).getPin();
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				System.out.println("ay");
+			}
             if(Motors.locks[motorsTemp[i]]) throw new MotorLockedException();
         }
         for(int i : motorsTemp){
             Motors.lock(i);
         }
         this.motors = motorsTemp;
-        motors.enabled = true;
+        this.enabled = true;
     }
     /* Unlock the motors associated with this MotorSet */
     public void disable(){

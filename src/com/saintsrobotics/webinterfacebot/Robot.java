@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import org.simpleHTTPServer.SimpleHTTPServer;
 
 import com.saintsrobotics.webinterfacebot.motors.Motors;
-import com.saintsrobotics.webinterfacebot.motors.MotorsPractice;
 import com.saintsrobotics.webinterfacebot.util.Task;
 import com.saintsrobotics.webinterfacebot.util.TaskRunner;
 import com.saintsrobotics.webinterfacebot.util.WaitForSeconds;
@@ -30,7 +29,6 @@ public class Robot extends IterativeRobot {
 	public  WebInterface webInterface;
 	private SimpleHTTPServer server;
 	private TaskRunner runner;
-	public Motors motors;
 	public OI oi;
     public void robotInit() {
     	/*server = new SimpleHTTPServer(8080, new File("./home/lvuser/html/index.html"));
@@ -57,6 +55,9 @@ public class Robot extends IterativeRobot {
     public void teleopInit(){
     	runner = new TaskRunner( new Task[]{
                 new Task(){
+                	public Task(){
+                		require(new MotorsLeft())
+                	}
 					@Override
 					protected void run() {
 						motors.LEFT().set(0.7);
