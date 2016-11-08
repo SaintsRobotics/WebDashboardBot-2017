@@ -27,6 +27,7 @@ public class Motor {
     }
 
     public void set(double speed) {
+        if(!Motors.locks[pin]) System.out.println("Motor " + pin + " isn't locked. Check your code.");
         motor.set(speed);
     }
     /**
@@ -36,4 +37,3 @@ public class Motor {
         
     }
 }
-

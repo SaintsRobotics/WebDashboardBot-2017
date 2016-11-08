@@ -33,6 +33,7 @@ public class Motors {
         if (motors[pin] == null) {
             motors[pin] = new Motor(new Jaguar(pin), pin, inverted);
         }
+        locks[pin] = true;
         return motors[pin];
     }
     /**
@@ -53,6 +54,7 @@ public class Motors {
         if (motors[pin] == null) {
             motors[pin] = new Motor(new Talon(pin), pin, inverted);
         }
+        locks[pin] = true;
         return motors[pin];
     }
     /**
@@ -61,7 +63,7 @@ public class Motors {
      * @param   pin   pwm pin number of motor to unlock
      * */
     public static void unlock(int pin){
-        motors[pin].stop();
+        if(motors[pin] != null)motors[pin].stop();
         locks[pin] = false;
     }
     public static void lock(int pin) throws MotorLockedException{

@@ -88,7 +88,12 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void teleopPeriodic() {
-        runner.run();
+    	try{
+        	runner.run();
+    	}catch(MotorLockedException e){
+    		DriverStation.reportError("A Task initalized a locked Motor!",false);
+    		
+    	}
     }
     
     @Override
