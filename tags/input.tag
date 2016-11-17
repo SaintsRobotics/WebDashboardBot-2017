@@ -1,12 +1,12 @@
 <inputs>
 	<div  class="flex-item" each={ inputs }>
 		<p class="wait">
-		
+
 		<form>
 		<h3>{ title }</h3>
 			<input type="range" name="valueEdit1" id="rangeInput" min="{ min }" max="{ max }" value ="{ value }"  oninput="textInput.value = rangeInput.value;submitter.style.display= 'initial'" class="slider"></input>
 			<input type="text" name="valueEdit1" id="textInput" placeholder="{ value }" oninput="rangeInput.value = textInput.value;submitter.style.display= 'initial'"></input>
-			<input type="button" id="submitter" name="sub1" class="submitVal" value="submit" onclick="parent.getVal.value = textInput.value;submitter.style.display='none';console.log('textInput: ' + textInput.value + ', inputs value: ' + { value })"></input>
+			<input type="button" id="submitter" name="sub1" class="submitVal" value="submit" onclick={ parent.getVal }></input>
 		</form>
 		</p>
 	</div>
@@ -21,9 +21,16 @@
     ]
 
 
-  getVal(event) {
-    return this.inputs[inputs.indexOf(event)]
-  }
-    
+		getVal(event) {
+			console.log("getval startted");
+			console.log(event);
+			console.log("text input value:" + event.srcElement.previousElementSibling.value);
+			event.srcElement.previousElementSibling.hidden = true;
+			var item = event.item;
+			var index = this.inputs.indexOf(item);
+			this.inputs[index].value = event.srcElement.previousElementSibling.value;
+
+	  }
+
   </script>
 </inputs>
