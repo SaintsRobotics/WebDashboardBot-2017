@@ -1,12 +1,8 @@
 {
-    "test":{
-        "test":{
-            "server-writable":true,
-            "value":"hi"
-        },
-        "woot":{
-            "server-writable":false,
-            "value":"toot"
+    "client":{
+        "outputs":{
+            "hi":1,
+            "bye":2
         }
     }
 }
