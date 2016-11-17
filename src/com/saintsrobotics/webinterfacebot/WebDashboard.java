@@ -1,38 +1,15 @@
-package com.saintsrobotics.webinterfacebot;
-
-import java.net.InetSocketAddress;
-import java.net.UnknownHostException;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
-import org.java_websocket.WebSocket;
-import org.java_websocket.handshake.ClientHandshake;
-import org.java_websocket.server.WebSocketServer;
-
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.Collection;
-import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.Map;
 
-import org.json.*;
-
-
-public class WebDashboard extends WebSocketServer {
-	
+import org.json.JSONException;
+import org.json.JSONObject;
+public class WebDashboard {
 	public JSONObject values;
-	
-	
-	
-	public WebDashboard() throws UnknownHostException {
-		super(new InetSocketAddress(1899));
-		// TODO Auto-generated constructor stub
-
+	public WebDashboard(){
 		try {
-			values = new JSONObject(new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir"),"/html/define.json"))));
-			
+			values = new JSONObject(new String(Files.readAllBytes(Paths.get("html/define.json"))));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -41,87 +18,39 @@ public class WebDashboard extends WebSocketServer {
 			e.printStackTrace();
 		}
 	}
-	@Override
-	public void onOpen(WebSocket conn, ClientHandshake handshake) {
-		System.out.println("Connected to " + conn.getRemoteSocketAddress().toString());
-	}
-
-	@Override
-	public void onClose(WebSocket conn, int code, String reason, boolean remote) {
-		System.out.println("closed " + conn.getRemoteSocketAddress().toString() + " with code " + code + " because " + reason + "; closed by " + (remote ? "remote":"local"));
-	}
-
-	@Override
-	public void onMessage(WebSocket conn, String message) {
-		System.out.println("recv: " + message + " from " + conn.getRemoteSocketAddress().toString());
+	public void onMessage(String message){
 		JSONObject json = new JSONObject(message);
-		if(json.getString("type").equals("confirm")){
-			Iterator<String> keys =json.keys();
-			while(keys.hasNext()){
-				String changeKey = keys.next();
-				if(changeKey.equals("type")){
-					changeKey = keys.next();
-				}
-				JSONObject changeValues = values.getJSONObject(changeKey);
-				Iterator<String> things = json.getJSONObject(changeKey).keys();
-				while(things.hasNext()){
-					String key = things.next();
-					if(!changeValues.has(key) || !changeValues.getJSONObject(key).getBoolean("server-writable")){
-						conn.send("{'type':'error','message':'I never told you to do that'}");
-						return;
-					}
-				}
-				things = json.getJSONObject(changeKey).keys();
-				while(things.hasNext()){
-					String key = things.next();
-					changeValues.getJSONObject(key).put("value", json.getJSONObject(changeKey).get(key));
-				}
-			}
-		}else if(json.getString("type").equals("delta")){
-			Iterator<String> keys=json.keys();
-			while(keys.hasNext()){
-				String changeKey = keys.next();
-				if(changeKey.equals("type")){
-					changeKey = keys.next();
-				}
-				JSONObject changeValues = values.getJSONObject(changeKey);
-				Iterator<String> things = json.getJSONObject(changeKey).keys();
-				while(things.hasNext()){
-					String key = things.next();
-					if(!changeValues.has(key) || changeValues.getJSONObject(key).getBoolean("server-writable")){
-						conn.send("{'type':'error','message':'You shouldn\\'nt be able to write to that'}");
-						return;
-					}
-				}
-				things = json.getJSONObject(changeKey).keys();
-				
-			}
-			json.put("type", "confirm");
-			conn.send(json.toString());
-			while(keys.hasNext()){
-				String changeKey = keys.next();
-				if(changeKey.equals("type")){
-					changeKey = keys.next();
-				}
-				JSONObject changeValues = values.getJSONObject(changeKey);
-				Iterator<String> things = json.getJSONObject(changeKey).keys();
-				while(things.hasNext()){
-					String key = things.next();
-					changeValues.getJSONObject(key).put("value", json.getJSONObject(changeKey).get(key));
-				}
-			}
-			
-		}else if(json.getString("type").equals("error")){
+		if(json.getString("type").equals("error")){
+			return;
 			//welp
+			//TODO: actually fix this
+		}
+		boolean confirm = json.getString("type").equals("confirm");
+		Iterator<String> keys =json.keys();
+		while(keys.hasNext()){
+			String changeKey = keys.next();
+			if(changeKey.equals("type")){
+				if(!keys.hasNext()) break;
+				changeKey = keys.next();
+			}
+			JSONObject changeValues = values.getJSONObject(confirm?"client":"server").getJSONObject(changeKey);
+			Iterator<String> things = json.getJSONObject(changeKey).keys();
+			while(things.hasNext()){
+				String key = things.next();
+				if(!changeValues.has(key)){
+					SocketDummy.send("{'type':'error','message':'I never told you to do that'}");
+					return;
+				}
+			}
+			things = json.getJSONObject(changeKey).keys();
+			while(things.hasNext()){
+				String key = things.next();
+				System.out.println(confirm?"client":"server" + " " + changeKey + " " + key);
+				values.getJSONObject(confirm?"client":"server").getJSONObject(changeKey).put(key, json.getJSONObject(changeKey).get(key));
+			}
 		}
 	}
-	
-
-	@Override
-	public void onError(WebSocket conn, Exception ex) {
-		System.out.println("ERROR: " + ex.getMessage());
-		ex.printStackTrace();
-		// TODO Auto-generated method stub
+	public ValueFamily family(String s){
+		return new ValueFamily(s,this.values);
 	}
-	
 }
