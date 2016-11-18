@@ -1,4 +1,4 @@
-package com.saintsrobotics.webinterfacebot.util;
+package com.saintsrobotics.util.task;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,14 +23,9 @@ public class TaskRunner{
             if(task.iterator == null) task.iterator = task.iterator();
             if(task.waiter != null && task.waiter.getAsBoolean())
                 if(task.iterator.hasNext())
-                	try{
-                    	task.waiter=task.iterator.next();
-                	}catch(MotorLockedException e){
-                		DriverStation.reportError("Task " + task.getClass().getName() + " Failed Because of Motor Collision!", false);
-                	}
-                else{
+                    task.waiter=task.iterator.next();
+                else
                     list.remove();
-                }
         }
 	}
 	public void disable(){

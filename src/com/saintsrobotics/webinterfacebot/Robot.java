@@ -1,4 +1,3 @@
-
 package com.saintsrobotics.webinterfacebot;
 
 import java.io.File;
@@ -30,18 +29,19 @@ public class Robot extends IterativeRobot {
 	private SimpleHTTPServer server;
 	private TaskRunner runner;
 	public OI oi;
+	public MotorsTestBot motors;
     public void robotInit() {
-    	/*server = new SimpleHTTPServer(8080, new File("./home/lvuser/html/index.html"));
+    	server = new SimpleHTTPServer(8080, new File("./home/lvuser/html"));
     	server.start();
     	try {
-			webInterface = new WebInterface();
-			webInterface.start();
+			webDashboard = new WebDashboard();
+			webDashboard.start();
 			System.out.println("socket up");
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
-    	motors = new MotorsPractice();
+		}
+    	motors = new MotorsTestBot();
     	oi = new OI();
     }
     
@@ -60,12 +60,12 @@ public class Robot extends IterativeRobot {
                 	}
 					@Override
 					protected void run() {
-						motors.LEFT().set(0.7);
+						motors.LEFT.set(0.7);
 						yield(new WaitForSeconds(10));
-						motors.LEFT().set(-0.7);
+						motors.LEFT.set(-0.7);
 						yield(new WaitForSeconds(10));
 						while(true){
-							motors.LEFT().set(oi.getDrive(OI.Axis.LY));
+							motors.LEFT.set(oi.getDrive(OI.Axis.LY));
 							yield(()->{return true;});
 						}
 					}
@@ -74,7 +74,7 @@ public class Robot extends IterativeRobot {
                 	@Override
 					protected void run() {
 							while(true){
-							motors.RIGHT().set(oi.getDrive(OI.Axis.LY));
+							motors.RIGHT.set(oi.getDrive(OI.Axis.LY));
 							yield(()->{return true;});
 						}
 					}

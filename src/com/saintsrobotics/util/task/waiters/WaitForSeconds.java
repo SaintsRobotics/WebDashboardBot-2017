@@ -1,4 +1,4 @@
-package com.saintsrobotics.webinterfacebot.util;
+package com.saintsrobotics.util.task.waiters;
 
 import java.util.function.BooleanSupplier;
 
