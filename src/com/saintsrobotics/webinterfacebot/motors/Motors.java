@@ -29,11 +29,9 @@ public class Motors {
      * 
     */
     public static Motor getJaguar(int pin, boolean inverted) {
-        if(locks[pin]) return null;
         if (motors[pin] == null) {
-            motors[pin] = new Motor(new Jaguar(pin), pin, inverted);
+            motors[pin] = new Motor(new Jaguar(pin), inverted);
         }
-        locks[pin] = true;
         return motors[pin];
     }
     /**
@@ -50,26 +48,10 @@ public class Motors {
      *  @throws com.saintsrobotics.webinterfacebot.motors.MotorLockedException  if the motor is already locked.
     */
     public static Motor getTalon(int pin, boolean inverted){
-        if(locks[pin]) return null;
         if (motors[pin] == null) {
-            motors[pin] = new Motor(new Talon(pin), pin, inverted);
+            motors[pin] = new Motor(new Talon(pin), inverted);
         }
-        locks[pin] = true;
         return motors[pin];
-    }
-    /**
-     * Unlocks a motor and sets it to zero (well it does it the other way round but whatever). Makes sure unclaimed motors don't run. 
-     * 
-     * @param   pin   pwm pin number of motor to unlock
-     * */
-    public static void unlock(int pin){
-        if(motors[pin] != null)motors[pin].stop();
-        locks[pin] = false;
-    }
-    public static void lock(int pin) throws MotorLockedException{
-        if(locks[pin]) throw new MotorLockedException();
-        motors[pin].stop();
-        locks[pin] = true;
     }
     
 
