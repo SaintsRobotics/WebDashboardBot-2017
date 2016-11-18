@@ -22,13 +22,10 @@
 
 
 		getVal(event) {
-			console.log("getval startted");
-			console.log(event);
-			console.log("text input value:" + event.srcElement.previousElementSibling.value);
-			event.srcElement.previousElementSibling.hidden = true;
 			var item = event.item;
 			var index = this.inputs.indexOf(item);
 			this.inputs[index].value = event.srcElement.previousElementSibling.value;
+			event.srcElement.style.display= "none";
 
 	  }
 
