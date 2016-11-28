@@ -1,4 +1,4 @@
-package com.saintsrobotics.webinterfacebot.util.dash;
+package com.saintsrobotics.util.dash;
 
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
@@ -18,6 +18,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.json.*;
+
+import com.saintsrobotics.webinterfacebot.Robot;
 
 
 public class WebDashboard extends WebSocketServer {
@@ -71,7 +73,7 @@ public class WebDashboard extends WebSocketServer {
 			while(things.hasNext()){
 				String key = things.next();
 				if(!changeValues.has(key)){
-					SocketDummy.send("{'type':'error','message':'I never told you to do that'}");
+					defaultSocket.send("{'type':'error','message':'I never told you to do that'}");
 					return;
 				}
 			}
@@ -85,11 +87,11 @@ public class WebDashboard extends WebSocketServer {
 	}
 	public void send(String message){
 		if(this.defaultSocket == null)
-			this.defaultSocket = this.connections.iterator().next();
+			this.defaultSocket = this.connections().iterator().next();
 		this.defaultSocket.send(message);
 	}
 	public ValueFamily family(String s){
-		return new ValueFamily(s,this.values);
+		return new ValueFamily(s,this);
 	}
 
 	@Override

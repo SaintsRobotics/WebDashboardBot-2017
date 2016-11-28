@@ -8,7 +8,7 @@ import java.util.function.IntSupplier;
 
 import org.json.JSONObject;
 
-import com.saintsrobotics.webinterfacebot.WebDashboard;
+import com.saintsrobotics.util.dash.*;
 
 
 public class Tester{
@@ -17,10 +17,15 @@ public class Tester{
 			WebDashboard dash = new WebDashboard();
 			dash.start();
 			Scanner scn = new Scanner(System.in);
+			
+			MotorsWebDashboard motors = new MotorsWebDashboard(dash);
 			while(true){
-				log(dash.values.toString());
+				motors.refresh();
+				motors.get("left");
+				motors.get("right");
 				scn.nextLine();
 			}
+			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

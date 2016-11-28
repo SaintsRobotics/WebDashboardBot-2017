@@ -6,10 +6,11 @@ import java.util.ArrayList;
 
 import org.simpleHTTPServer.SimpleHTTPServer;
 
+import com.saintsrobotics.util.dash.WebDashboard;
+import com.saintsrobotics.util.task.*;
 import com.saintsrobotics.webinterfacebot.motors.Motors;
-import com.saintsrobotics.webinterfacebot.util.Task;
-import com.saintsrobotics.webinterfacebot.util.TaskRunner;
-import com.saintsrobotics.webinterfacebot.util.WaitForSeconds;
+import com.saintsrobotics.webinterfacebot.motors.MotorsWebDashboard;
+import com.saintsrobotics.util.*;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -26,7 +27,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	public static Robot instance;
-	public  WebInterface webInterface;
+	public  WebDashboard webDashboard;
 	private SimpleHTTPServer server;
 	private TaskRunner runner;
 	public OI oi;
@@ -42,7 +43,7 @@ public class Robot extends IterativeRobot {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	motors = new MotorsTestWebDashboard(webDashboard);
+    	motors = new MotorsWebDashboard(webDashboard);
     	oi = new OI();
     	instance = this;
     }
@@ -57,31 +58,7 @@ public class Robot extends IterativeRobot {
     public void teleopInit(){
     	motors.refresh();
     	runner = new TaskRunner( new Task[]{
-                new Task(){
-                	public Task(){
-                		require(new MotorsLeft())
-                	}
-					@Override
-					protected void run() {
-						motors.LEFT.set(0.7);
-						yield(new WaitForSeconds(10));
-						motors.LEFT.set(-0.7);
-						yield(new WaitForSeconds(10));
-						while(true){
-							motors.LEFT.set(oi.getDrive(OI.Axis.LY));
-							yield(()->{return true;});
-						}
-					}
-                },
-                new Task(){
-                	@Override
-					protected void run() {
-							while(true){
-							motors.RIGHT.set(oi.getDrive(OI.Axis.LY));
-							yield(()->{return true;});
-						}
-					}
-                }
+                
     	});
 
     }
@@ -108,5 +85,7 @@ public class Robot extends IterativeRobot {
     public void testPeriodic() {
     
     }
-    
+    public static void log(String s){
+    	DriverStation.reportError(s + "\n", false);
+    }
 }

@@ -5,7 +5,7 @@ import org.json.JSONObject;
 public class ValueFamily {
 	public final String index;
 	private final WebDashboard wi;
-	public ValueFamily(String index, JSONObject wi){
+	public ValueFamily(String index, WebDashboard wi){
 		this.index = index;
 		this.wi = wi;
 	}
