@@ -25,24 +25,26 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	public static Robot instance;
 	public  WebInterface webInterface;
 	private SimpleHTTPServer server;
 	private TaskRunner runner;
 	public OI oi;
-	public MotorsTestBot motors;
+	public MotorsWebDashboard motors;
     public void robotInit() {
-    	server = new SimpleHTTPServer(8080, new File("./home/lvuser/html"));
-    	server.start();
+    	/*server = new SimpleHTTPServer(8080, new File("./home/lvuser/html"));
+    	server.start();*/
     	try {
 			webDashboard = new WebDashboard();
 			webDashboard.start();
-			System.out.println("socket up");
+			Robot.log("socket up");
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	motors = new MotorsTestBot();
+    	motors = new MotorsTestWebDashboard(webDashboard);
     	oi = new OI();
+    	instance = this;
     }
     
     public void autonomousInit() {
@@ -53,6 +55,7 @@ public class Robot extends IterativeRobot {
     }
     @Override
     public void teleopInit(){
+    	motors.refresh();
     	runner = new TaskRunner( new Task[]{
                 new Task(){
                 	public Task(){
@@ -88,12 +91,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void teleopPeriodic() {
-    	try{
-        	runner.run();
-    	}catch(MotorLockedException e){
-    		DriverStation.reportError("A Task initalized a locked Motor!",false);
-    		
-    	}
+    	runner.run();
     }
     
     @Override

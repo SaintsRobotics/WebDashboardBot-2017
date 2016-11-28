@@ -1,6 +1,6 @@
 package com.saintsrobotics.webinterfacebot.motors;
 import org.json.JSONObject;
-public class MotorsTestWebDashboard{
+public class MotorsWebDashboard{
     private JSONObject vals;
     private WebDashboard web;
     public MotorsTestWebDashboard(WebDashboard web){
