@@ -1,12 +1,14 @@
 {
-    'test':{
-        'test':{
-            "server-writable":true,
-            'value':"hi"
-        },
-        'woot':{
-            "server-writable":false,
-            'value':"toot"
+    "client":{
+        "motors":{
+            "left":{
+                "port":0,
+                "inverted":false
+            },
+            "right":{
+                "port":1,
+                "inverted":false,
+            }
         }
     }
 }

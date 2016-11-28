@@ -27,6 +27,6 @@ public class Motor {
      * Immediately stops the motor
      * */
     public void stop(){
-        
+        motor.set(0);
     }
 }
