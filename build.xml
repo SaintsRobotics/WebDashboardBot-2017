@@ -25,6 +25,6 @@
   <property file="build.properties"/>
   <property file="${user.home}/wpilib/java/${version}/ant/build.properties"/>
   <echo> Running Build HTML</echo>
-  <import file="${user.dir}/build-html.xml"/>
+  <import file="build-html.xml"/>
 
 </project> 
