@@ -1,12 +1,14 @@
+package com.saintsrobotics.util.task;
+
 public class Time{
     private static long startTime;
     private static long lastTime;
     public static void start(){
-        startTime = System.currentTimemillis();
-        lastTime = System.currentTimemillis();
+        startTime = System.currentTimeMillis();
+        lastTime = System.currentTimeMillis();
     }
     private static void update(){
-        lastTime = System.currentTimemillis();
+        lastTime = System.currentTimeMillis();
     }
     public static double deltaSeconds(){
         return (double)deltaMillis()/1000.0;
