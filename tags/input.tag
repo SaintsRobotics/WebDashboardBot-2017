@@ -1,5 +1,6 @@
+
 <inputs>
-	<div  class="flex-item" each={ inputs }>
+	<div  class="flex-item" each={ inputValues }>
 		<p class="wait">
 
 		<form>
@@ -11,23 +12,42 @@
 		</p>
 	</div>
 
+    <script type="text/javascript" src="./define.json"></script>
 	 <script>
-    this.inputs = [
-    { title: 'Speed', min: 0, max: 10, value: 5 },
-    { title: 'Shoulder', min: 0, max:360, value:90},
-    { title: 'Elbow', min: 0, max: 10, value:5 },
-    { title: 'Leg', min: 0, max: 100, value:60 },
-    { title: 'Beauty', min: 0, max:20, value:10 }
-    ]
-
-
-		getVal(event) {
+	this.inputValues = [];
+	
+	this.on('update', function() {
+		console.log("update");
+		if(!this.values) return;
+		this.inputValues = [];
+	    for(var value in this.values.server){
+    	    console.log(value + " has " + this.values.server[value]);
+        	this.inputValues.push({
+        		"title": value,
+        		"max": this.values.server[value]["max"],
+        		"min": this.values.server[value]["min"],
+        		"value": this.values.server[value]["value"]
+        	});
+    	}
+    	console.log(this.inputValues);
+	});
+	  
+	getVal(event) {
+			console.log("start getVal");
 			var item = event.item;
-			var index = this.inputs.indexOf(item);
-			this.inputs[index].value = event.srcElement.previousElementSibling.value;
-			event.srcElement.style.display= "none";
-
+			var index = this.inputValues.indexOf(item);
+			//this.inputs[index].value = event.srcElement.previousElementSibling.value;
+			for(var value in this.values.server){
+        		console.log(value + " is " + this.values.server[value]);
+        		if(value = item.title){
+        			this.values.server[value]["value"] = event.srcElement.previousElementSibling.value;
+        		}
+			}
+			console.log(this.values.server);
+			//event.srcElement.style.display= "none";
 	  }
+	  
+
 
   </script>
 </inputs>

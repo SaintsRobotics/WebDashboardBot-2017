@@ -4,5 +4,11 @@
             "hi":1,
             "bye":2
         }
+    },
+    "server":{
+        "inputs":{
+          "Head":{"min":0,"max":10,"value":5},
+          "Shoulder":{"min":0,"max":100,"value":50}
+        }
     }
 }
