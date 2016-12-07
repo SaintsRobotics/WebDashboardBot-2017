@@ -1,6 +1,8 @@
 
 <inputs>
-	<div  class="flex-item" each={ inputValues }>
+<div class="flex-container">
+<h2> Inputs </h2>
+	<div  class="flex-item" id="inputitem" each={ inputValues }>
 		<p class="wait">
 
 		<form>
@@ -10,6 +12,7 @@
 			<input type="button" id="submitter" name="sub1" class="submitVal" value="submit" onclick={ parent.getVal }></input>
 		</form>
 		</p>
+	</div>
 	</div>
 
     <script type="text/javascript" src="./define.json"></script>
@@ -37,12 +40,20 @@
 			var item = event.item;
 			var index = this.inputValues.indexOf(item);
 			//this.inputs[index].value = event.srcElement.previousElementSibling.value;
-			for(var value in this.values.server){
-        		console.log(value + " is " + this.values.server[value]);
-        		if(value = item.title){
-        			this.values.server[value]["value"] = event.srcElement.previousElementSibling.value;
-        		}
+			this.inputValues[index].value = event.srcElement.previousElementSibling.value;
+			var obj={};
+			obj[this.inputValues[index]["title"]] = {
+					"min": this.inputValues[index]["min"],
+					"max": this.inputValues[index]["max"],
+					"value": this.inputValues[index]["value"]
 			}
+			console.log("obj");
+			console.log(obj);
+			console.log("Changing value: " + this.inputValues[index]["title"] + " to " + this.inputValues[index]["value"]);
+			console.log("Before sent: ");
+			console.log(this.values.server);
+			this.sendChange(obj);
+			console.log("Change sent. Server values: ");
 			console.log(this.values.server);
 			//event.srcElement.style.display= "none";
 	  }

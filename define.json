@@ -2,7 +2,10 @@
     "client":{
         "outputs":{
             "hi":1,
-            "bye":2
+            "bye":2,
+            "more":3,
+            "more2":4,
+            "more3":5
         }
     },
     "server":{

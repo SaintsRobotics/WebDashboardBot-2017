@@ -2,6 +2,14 @@ header {
 	background-color: #d9d9d9;
 	margin-bottom: 30px;
 	padding: 1.5em;
+	width:111%;
+	margin-top:-10px;
+	margin-left:-11%;
+}
+body {
+	text-align:center;
+	padding:0px;
+	margin-left:10%;
 }
 
 h1 {
@@ -10,54 +18,59 @@ h1 {
 	text-align: center;
 	color: white;
 }
+h2{
+	background-color:#eee;
+	width:110%;
+	margin:-10px -10px 5px -10px;
+	padding:5px;
+	color:black;
+	font-size-adjust:-20;
+	letter-spacing: 10px;
+	font-family:Helvetica, Verdana;
+	font-variant: small-caps;
+	
+}
 
 .flex-container {
 	display: -webkit-flex;
 	display: flex;
 	width: 40%;
-	height: 700px;
+	max-height: 700px;
 	background-color: #003366;
 	border-radius: 15px;
 	flex-direction: row;
 	flex-wrap: wrap;
 	float: left;
-	margin-bottom:10px;
+	margin:10px;
 	overflow-y:auto;
 	overflow-x:hidden;
 	text-align:center;
+	padding:10px;
 }
 
 .flex-item{
 	background-color: #d9d9d9;
-	max-width: 40%;
-	height: 160px;
+	width: 40%;
+	min-width:110px;
 	padding: 8px;
-	margin: auto;
-	margin-right: 5%;
-	margin-bottom: 10px;
+	margin: 0 auto;
 	margin-top: 10px;
+	margin-bottom:0px;
 	border-radius: 15px;
 	font-family: Helvetica, Verdana;
 	text-align: center;
 	display: inline-block;
 }
 
-inputs, outputs {
-	margin-right: -5%;
-	text-align: center;
-	display: inline;
+#inputitem {
+	height:160px;
 }
-
-outputs {
-	background-color:#d9d9d9;
-	border-radius:15px;
-	width:90%;
-	margin:5%;
-	height:90%;
-	font-family: Helvetica, Verdana;
-	text-align: center;
+#outputitem {
+	height:10px;
+	padding:4px;
+	padding-bottom:10px;
+	
 }
-
 h3 {
 	margin: 0;
 	margin-top: -30px;

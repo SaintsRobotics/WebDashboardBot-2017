@@ -1,6 +1,9 @@
 <outputs>
-<div each={ outputValues }>
+<div class="flex-container">
+<h2>Outputs</h2>
+<div each={ outputValues } class="flex-item" id="outputitem">
   <strong>{ title }</strong>: { value }
+</div>
 </div>
 <script>
 this.outputValues = [];
