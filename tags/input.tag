@@ -47,14 +47,14 @@
 					"max": this.inputValues[index]["max"],
 					"value": this.inputValues[index]["value"]
 			}
-			console.log("obj");
+			/*console.log("obj");
 			console.log(obj);
 			console.log("Changing value: " + this.inputValues[index]["title"] + " to " + this.inputValues[index]["value"]);
 			console.log("Before sent: ");
-			console.log(this.values.server);
+			console.log(this.values.server);*/
 			this.sendChange(obj);
-			console.log("Change sent. Server values: ");
-			console.log(this.values.server);
+			/*console.log("Change sent. Server values: ");
+			console.log(this.values.server);*/
 			//event.srcElement.style.display= "none";
 	  }
 	  

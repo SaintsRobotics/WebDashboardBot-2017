@@ -3,6 +3,9 @@
 var fakeSocket = {
 	send:function(message){
 		console.log(message);
+		var obj =JSON.parse(message);
+		obj.type = "confirm";
+		this.receive(obj);
 	},
 	receive: function(message){
 		this.onmessage({data:JSON.stringify(message)});
@@ -24,6 +27,7 @@ $().get('define.json', function(data, status){
 			tags[key].values = {client:dictionary.client[key]};
 			tags[key].name = key;
 			tags[key].sendChange = function(change){
+					console.log("Send change called: client");
 					var obj = {
 						type:"delta",
 					};
@@ -41,6 +45,7 @@ $().get('define.json', function(data, status){
 				tags[key].values = {server:dictionary.server[key]};
 				tags[key].name = key;
 				tags[key].sendChange = function(change){
+					console.log("Send change called: server");
 					var obj = {
 						type:"delta",
 					};
@@ -88,6 +93,7 @@ function put(name, stringOrDict, valueMebbe){
 
 socket.onmessage = function(data){
 	data = JSON.parse(data.data);
+	console.log(data);
 	if(data.type == "error"){
 		//deal with this later
 		console.log(data);
