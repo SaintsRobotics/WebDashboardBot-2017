@@ -1,17 +1,4 @@
-/*global $*/
-/*global riot*/
-var fakeSocket = {
-	send:function(message){
-		console.log(message);
-		var obj =JSON.parse(message);
-		obj.type = "confirm";
-		this.receive(obj);
-	},
-	receive: function(message){
-		this.onmessage({data:JSON.stringify(message)});
-	}
-}
-var socket = fakeSocket//new WebSocket("ws://" + window.location.hostname + ":1899");
+var socket = new WebSocket("ws://" + window.location.hostname + ":1899");
 
 var dictionary = {}; 
 var tags = {};
