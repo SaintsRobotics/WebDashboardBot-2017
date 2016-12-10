@@ -6,8 +6,10 @@ import java.util.ArrayList;
 
 import org.simpleHTTPServer.SimpleHTTPServer;
 
+import com.saintsrobotics.util.dash.ValueFamily;
 import com.saintsrobotics.util.dash.WebDashboard;
 import com.saintsrobotics.util.task.*;
+import com.saintsrobotics.util.task.waiters.WaitForSeconds;
 import com.saintsrobotics.webinterfacebot.motors.Motors;
 import com.saintsrobotics.webinterfacebot.motors.MotorsWebDashboard;
 import com.saintsrobotics.util.*;
@@ -33,9 +35,9 @@ public class Robot extends IterativeRobot {
 	public OI oi;
 	public MotorsWebDashboard motors;
     public void robotInit() {
-    	/*server = new SimpleHTTPServer(8080, new File("./home/lvuser/html"));
-    	server.start();*/
     	try {
+    		server = new SimpleHTTPServer(8080, new File("./home/lvuser/html"));
+    		server.start();
 			webDashboard = new WebDashboard();
 			webDashboard.start();
 			Robot.log("socket up");
@@ -43,7 +45,7 @@ public class Robot extends IterativeRobot {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	motors = new MotorsWebDashboard(webDashboard);
+    	//motors = new MotorsWebDashboard(webDashboard);
     	oi = new OI();
     	instance = this;
     }
@@ -56,9 +58,33 @@ public class Robot extends IterativeRobot {
     }
     @Override
     public void teleopInit(){
-    	motors.refresh();
+    	//motors.refresh();
     	runner = new TaskRunner( new Task[]{
-                
+                new Task(){
+					@Override
+					protected void run() {
+						ValueFamily fam = webDashboard.family("inputs");
+						int lastHead = fam.getInt("Head");
+						while(true){
+							if(fam.getInt("Head") != lastHead){
+								lastHead = fam.getInt("Head");
+								Robot.log("New Value! " + lastHead);
+							}
+						}
+					}
+                	
+                },
+                new Task(){
+
+					@Override
+					protected void run() {
+						while(true){
+							Robot.log("Values " + webDashboard.values.toString());
+							yield(new WaitForSeconds(2));
+						}
+					}
+                	
+                }
     	});
 
     }
@@ -86,6 +112,6 @@ public class Robot extends IterativeRobot {
     
     }
     public static void log(String s){
-    	DriverStation.reportError(s + "\n", false);
+    	DriverStation.reportError(s + "\n\n", false);
     }
 }
