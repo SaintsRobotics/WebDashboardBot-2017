@@ -1,5 +1,6 @@
 /*global $*/
 /*global riot*/
+var debug = true;
 var fakeSocket = {
 	send:function(message){
 		console.log(message);
@@ -89,14 +90,15 @@ function put(name, stringOrDict, valueMebbe){
 	}
 	socket.send(JSON.stringify(message));
 }
-
+var lastMessage;
 
 socket.onmessage = function(data){
 	data = JSON.parse(data.data);
-	console.log(data);
+	if(debug) lastMessage=data;
 	if(data.type == "error"){
 		//deal with this later
-		console.log(data);
+		if(debug){console.log("error!");
+		console.log(data);}
 		return;
 	}
 	var delta;
