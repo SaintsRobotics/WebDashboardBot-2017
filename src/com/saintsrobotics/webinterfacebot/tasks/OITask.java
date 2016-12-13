@@ -11,10 +11,20 @@ public class OITask extends Task {
 	@Override
 	protected void run() {
 		OI oi = Robot.instance.oi;
-		Motor left = Motors.get(0, false);
-		left.set(oi.getDrive(Axis.LX) + oi.getDrive(Axis.RY));
-		Motor right = Motors.get(1, false);
-		right.set(oi.getDrive(Axis.RX) + oi.getDrive(Axis.LY));
+		double leftValue = oi.getDrive(Axis.LX) + oi.getDrive(Axis.RY);
+		Motor left1 = Motors.get(0, false);
+		left1.set(leftValue);
+		Motor left2 = Motors.get(0, false);
+		left2.set(leftValue);
+		Motor left3 = Motors.get(0, false);
+		left3.set(leftValue);
+		double rightValue = oi.getDrive(Axis.RX) + oi.getDrive(Axis.LY);
+		Motor right1 = Motors.get(1, false);
+		right1.set(rightValue);
+		Motor right2 = Motors.get(1, false);
+		right2.set(rightValue);
+		Motor right3 = Motors.get(1, false);
+		right3.set(rightValue);
 	}
 
 }
