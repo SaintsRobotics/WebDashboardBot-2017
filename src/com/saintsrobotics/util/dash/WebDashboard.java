@@ -33,7 +33,8 @@ public class WebDashboard extends WebSocketServer {
 		// TODO Auto-generated constructor stub
 
 		try {
-			values = new JSONObject(new String(Files.readAllBytes(Paths.get("home/lvuser/html/define.json"))));
+			values = new JSONObject(new String(Files.readAllBytes(Paths.get("/home/lvuser/html/define.json"))));
+			Robot.log(new String(Files.readAllBytes(Paths.get("/home/lvuser/html/define.json"))));
 		} catch (JSONException e) {
 			Robot.log("JSONException in WebDashboard Boot!");
 		} catch (IOException e) {

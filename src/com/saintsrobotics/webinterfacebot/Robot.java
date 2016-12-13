@@ -78,6 +78,7 @@ public class Robot extends IterativeRobot {
 
 					@Override
 					protected void run() {
+						Robot.log("Robot Dir: " + System.getProperty("user.dir"));
 						while(true){
 							Robot.log("Values " + webDashboard.values.toString());
 							yield(new WaitForSeconds(2));
