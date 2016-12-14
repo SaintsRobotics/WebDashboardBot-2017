@@ -9,5 +9,9 @@
 	<classpathentry kind="lib" path="C:/Users/s-saxenae/wpilib/java/current/lib/NetworkTables-sources.jar"/>
 	<classpathentry kind="lib" path="C:/Users/s-saxenae/wpilib/java/current/lib/WPILib.jar"/>
 	<classpathentry kind="lib" path="C:/Users/s-saxenae/wpilib/java/current/lib/WPILib-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/s-sirosht/Documents/lib/NetworkTables.jar"/>
+	<classpathentry kind="lib" path="C:/Users/s-sirosht/Documents/lib/NetworkTables-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/s-sirosht/Documents/lib/WPILib.jar"/>
+	<classpathentry kind="lib" path="C:/Users/s-sirosht/Documents/lib/WPILib-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
