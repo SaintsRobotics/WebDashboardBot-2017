@@ -60,9 +60,7 @@ public class Robot extends IterativeRobot {
     	runner = new TaskRunner( new Task[]{
                 
     	});
-
     }
-
     /**
      * This function is called periodically during operator control
      */

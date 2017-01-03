@@ -1,14 +1,17 @@
 {
     "client":{
-        "motors":{
-            "left":{
-                "port":0,
-                "inverted":false
-            },
-            "right":{
-                "port":1,
-                "inverted":false,
-            }
+        "outputs":{
+            "hi":1,
+            "bye":2,
+            "more":3,
+            "more2":4,
+            "more3":5
+        }
+    },
+    "server":{
+        "inputs":{
+          "Head":{"min":0,"max":10,"value":5},
+          "Shoulder":{"min":0,"max":100,"value":50}
         }
     }
 }
