@@ -7,6 +7,7 @@ public class Motor {
 	private double goalSpeed;
 	private double rampingRate;
     private SpeedController motor;
+    
     /**
      * Wraps a motor object
      * @param motor a speedcontroller object that represents the motor
@@ -17,11 +18,11 @@ public class Motor {
         motor.setInverted(inverted);
     }
 
-    public double get() {
+    public double getGoal() {
         return goalSpeed;
     }
     
-    public double getActual() {
+    public double getCurrent() {
     	return motor.get();
     }
 
@@ -32,6 +33,7 @@ public class Motor {
     public double getRate() {
     	return rampingRate;
     }
+    
     /**
      * Immediately stops the motor
      * */

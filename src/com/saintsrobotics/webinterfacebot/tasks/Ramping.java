@@ -7,11 +7,13 @@ import com.saintsrobotics.webinterfacebot.motors.Motors;
 public class Ramping extends Task {
 	
 	protected void run() {
-		for (Motor motor : Motors.getMotors()) {
-			while (motor.getActual() < motor.get()) {
-				motor.set(motor.getActual() + motor.getRate());
-				yield (new WaitForFrame());
+		while(true) {
+			for (Motor motor : Motors.getMotors()) {
+				while (motor.getCurrent() < motor.getGoal()) {
+					motor.set(motor.getCurrent() + motor.getRate());
+				}
 			}
+			yield (new WaitForFrame());
 		}
 	}
 }
