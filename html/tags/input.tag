@@ -33,6 +33,7 @@
         	});
     	}
     	console.log(this.inputValues);
+    	document.body.className = "loaded";
 	});
 	  
 	getVal(event) {
