@@ -24,7 +24,7 @@
 		if(!this.values) return;
 		this.inputValues = [];
 	    for(var value in this.values.server){
-    	    console.log(value + " has " + this.values.server[value]);
+    	    console.log(value + " has " + this.values.server[value]["value"]);
         	this.inputValues.push({
         		"title": value,
         		"max": this.values.server[value]["max"],
