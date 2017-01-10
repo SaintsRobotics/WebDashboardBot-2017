@@ -7,13 +7,13 @@ public class MotorsWebDashboard{
     private WebDashboard web;
     public MotorsWebDashboard(WebDashboard web){
         this.web = web;
-        vals = web.values.getJSONObject("server").getJSONObject("motors");
+        vals = web.values.getJSONObject("server").getJSONObject("inputs");
     }
     public Motor get(String motor){
-        return Motors.get(vals.getJSONObject(motor).getInt("port"),vals.getJSONObject(motor).getBoolean("inverted"));
+        return Motors.get(vals.getJSONObject(motor).getInt("value"),false);//vals.getJSONObject(motor).getBoolean("inverted"));
     }
     public void refresh(){
         Motors.stopAll();
-        vals = web.values.getJSONObject("client").getJSONObject("motors");
+        vals = web.values.getJSONObject("server").getJSONObject("inputs");
     }
 }

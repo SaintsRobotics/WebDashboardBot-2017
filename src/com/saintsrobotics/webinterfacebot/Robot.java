@@ -33,8 +33,8 @@ public class Robot extends IterativeRobot {
 	public OI oi;
 	public MotorsWebDashboard motors;
     public void robotInit() {
-    	/*server = new SimpleHTTPServer(8080, new File("./home/lvuser/html"));
-    	server.start();*/
+    	server = new SimpleHTTPServer(8080, new File("./home/lvuser/html"));
+    	server.start();
     	try {
 			webDashboard = new WebDashboard();
 			webDashboard.start();
@@ -58,7 +58,15 @@ public class Robot extends IterativeRobot {
     public void teleopInit(){
     	motors.refresh();
     	runner = new TaskRunner( new Task[]{
-                
+                new Task(){
+					@Override
+					protected void run() {
+						motors.refresh();
+						motors.get("left").set(0.1);
+						motors.get("right").set(0.1);
+					}
+                	
+                }
     	});
     }
     /**

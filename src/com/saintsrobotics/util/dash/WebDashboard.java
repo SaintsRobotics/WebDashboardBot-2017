@@ -34,7 +34,7 @@ public class WebDashboard extends WebSocketServer {
 
 		try {
 			values = new JSONObject(new String(Files.readAllBytes(Paths.get("/home/lvuser/html/define.json"))));
-			Robot.log(new String(Files.readAllBytes(Paths.get("/home/lvuser/html/define.json"))));
+			//Robot.log(new String(Files.readAllBytes(Paths.get("/home/lvuser/html/define.json"))));
 		} catch (JSONException e) {
 			Robot.log("JSONException in WebDashboard Boot!");
 		} catch (IOException e) {
@@ -56,6 +56,11 @@ public class WebDashboard extends WebSocketServer {
 	@Override
 	public void onMessage(WebSocket conn, String message) {
 		this.defaultSocket = conn;
+		Robot.log("Message: " + message);
+		if(message.equals("Debug!")){
+			Robot.log(values.toString());
+			return;
+		}
 		JSONObject json = new JSONObject(message);
 		if(json.getString("type").equals("error")){
 			return;
@@ -82,10 +87,10 @@ public class WebDashboard extends WebSocketServer {
 			things = json.getJSONObject(changeKey).keys();
 			while(things.hasNext()){
 				String key = things.next();
-				System.out.println(confirm?"client":"server" + " " + changeKey + " " + key);
 				values.getJSONObject(confirm?"client":"server").getJSONObject(changeKey).put(key, json.getJSONObject(changeKey).get(key));
 			}
 		}
+		if(!confirm)json.put("type", "confirm");
 	}
 	public void send(String message){
 		if(this.defaultSocket == null)

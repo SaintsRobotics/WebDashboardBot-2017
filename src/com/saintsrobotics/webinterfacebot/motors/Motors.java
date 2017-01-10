@@ -48,7 +48,7 @@ public class Motors {
         return motors[pin];
     }
     public static void stopAll(){
-        for(Motor m : motors) m.stop();
+        for(Motor m : motors) if(m!=null)m.stop();
     }
 
 }
