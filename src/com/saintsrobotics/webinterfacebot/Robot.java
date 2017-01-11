@@ -1,16 +1,14 @@
 package com.saintsrobotics.webinterfacebot;
 
-import java.net.UnknownHostException;
-
-import org.simpleHTTPServer.SimpleHTTPServer;
-
 import com.saintsrobotics.util.dash.WebDashboard;
 import com.saintsrobotics.util.task.Task;
 import com.saintsrobotics.util.task.TaskRunner;
 import com.saintsrobotics.webinterfacebot.motors.MotorsWebDashboard;
-
+import com.saintsrobotics.webinterfacebot.tasks.DriveTask;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+
+import java.net.UnknownHostException;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,7 +20,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 public class Robot extends IterativeRobot {
 	public static Robot instance;
 	public  WebDashboard webDashboard;
-	private SimpleHTTPServer server;
+//	private SimpleHTTPServer server;
 	private TaskRunner runner;
 	public OI oi;
 	public MotorsWebDashboard motors;
@@ -52,7 +50,7 @@ public class Robot extends IterativeRobot {
     public void teleopInit(){
     	motors.refresh();
     	runner = new TaskRunner( new Task[]{
-                
+                new DriveTask()
     	});
     }
     /**

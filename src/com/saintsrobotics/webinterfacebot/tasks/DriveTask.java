@@ -15,12 +15,12 @@ public class DriveTask extends Task {
 		while(true) {
 			double leftValue = oi.getDrive(Axis.LX) + oi.getDrive(Axis.RY);
 			double rightValue = oi.getDrive(Axis.RX) + oi.getDrive(Axis.LY);
-			Motors.get(1, false).set(leftValue);
-			Motors.get(2, false).set(leftValue);
-			Motors.get(3, false).set(leftValue);
-			Motors.get(4, false).set(rightValue);
-			Motors.get(5, false).set(rightValue);
-			Motors.get(6, false).set(rightValue);
+			Motors.get(0, false).set(leftValue);
+			Motors.get(1, false).set(rightValue);
+//			Motors.get(2, false).set(leftValue);
+//			Motors.get(3, false).set(leftValue);
+//			Motors.get(5, false).set(rightValue);
+//			Motors.get(6, false).set(rightValue);
 			yield(new WaitForFrame());
 		}
 	}
