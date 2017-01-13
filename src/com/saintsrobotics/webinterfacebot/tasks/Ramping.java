@@ -12,14 +12,19 @@ public class Ramping extends Task {
 				double current = motor.getCurrent();
 				double goal = motor.getGoal();
 				double rate = motor.getRate();
-				if ((current + rate) > goal) {
-					motor.set(goal);
-				} else if ((current - rate) < goal) {
-					motor.set(goal);
-				} else if (current < goal) {
-					motor.set(current + rate);
+				 
+				if (current < goal) {
+					if ((current + rate) > goal) {
+						motor.set(goal);
+					} else {
+						motor.set(current + rate);
+					}
 				} else if (current > goal) {
-					motor.set(current - rate);
+					if ((current - rate) < goal) {
+						motor.set(goal);
+					} else {
+						motor.set(current - rate);
+					}
 				}
 			}
 			yield (new WaitForFrame());
