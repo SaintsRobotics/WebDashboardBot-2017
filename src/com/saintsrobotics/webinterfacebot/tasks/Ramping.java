@@ -9,8 +9,9 @@ public class Ramping extends Task {
 	protected void run() {
 		while(true) {
 			for (Motor motor : Motors.getMotors()) {
-				while (motor.getCurrent() < motor.getGoal()) {
+				while ((motor.getCurrent() + motor.getRate()) < motor.getGoal()) {
 					motor.set(motor.getCurrent() + motor.getRate());
+					yield (new WaitForFrame());
 				}
 			}
 			yield (new WaitForFrame());
