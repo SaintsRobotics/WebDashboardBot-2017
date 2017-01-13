@@ -5,13 +5,15 @@ import com.saintsrobotics.webinterfacebot.motors.Motor;
 import com.saintsrobotics.webinterfacebot.motors.Motors;
 
 public class Ramping extends Task {
-	private SpeedController s;
 	
 	protected void run() {
 		while(true) {
-			Motor motor = new Motor(s, true);
-			if (motor.getCurrent() < motor.getGoal() && motor.getRate() < motor.getGoal()) {
-				motor.set(motor.getCurrent() + motor.getRate());
+			for (Motor motor : Motors.getMotors()) {
+				if (motor.getCurrent() < motor.getGoal() && motor.getRate() < motor.getGoal()) {
+					motor.set(motor.getCurrent() + motor.getRate());
+				} else if (motor.getCurrent() > motor.getGoal() && motor.getRate() > motor.getGoal() && motor.getRate() < motor.getCurrent()) {
+					motor.set(motor.getCurrent() - motor.getRate());
+				}
 			}
 			yield (new WaitForFrame());
 		}
