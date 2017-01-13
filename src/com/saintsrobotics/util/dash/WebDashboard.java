@@ -30,15 +30,12 @@ public class WebDashboard extends WebSocketServer {
 	
 	public WebDashboard() throws UnknownHostException {
 		super(new InetSocketAddress(1899));
-		// TODO Auto-generated constructor stub
-
 		try {
 			values = new JSONObject(new String(Files.readAllBytes(Paths.get("/home/lvuser/html/define.json"))));
 			//Robot.log(new String(Files.readAllBytes(Paths.get("/home/lvuser/html/define.json"))));
 		} catch (JSONException e) {
 			Robot.log("JSONException in WebDashboard Boot!");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			Robot.log("IOException in WebDashboard Boot!");
 			Robot.log(e.getMessage());
 		}
@@ -64,6 +61,7 @@ public class WebDashboard extends WebSocketServer {
 		JSONObject json = new JSONObject(message);
 		if(json.getString("type").equals("error")){
 			return;
+			Robot.log(json.toString());
 			//welp
 			//TODO: actually fix this
 		}
@@ -91,6 +89,7 @@ public class WebDashboard extends WebSocketServer {
 			}
 		}
 		if(!confirm)json.put("type", "confirm");
+		send(json.toString);
 	}
 	public void send(String message){
 		if(this.defaultSocket == null)
