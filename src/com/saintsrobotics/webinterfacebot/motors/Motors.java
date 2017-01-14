@@ -1,4 +1,4 @@
-package com.saintsrobotics.webinterfacebot.motors;
+package src.com.saintsrobotics.webinterfacebot.motors;
 
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.SpeedController;
