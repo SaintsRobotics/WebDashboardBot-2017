@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 public class Motor {
 
 	private double goalSpeed;
-	private double rampingRate;
+	private double rampingRate = 0.1;
     private SpeedController motor;
     
     /**
@@ -26,8 +26,12 @@ public class Motor {
     	return motor.get();
     }
 
-    public void set(double speed) {
-        motor.set(speed);
+    public void setGoal(double speed) {
+    	goalSpeed = speed;
+    }
+    
+    public void setActual(double speed) {
+    	motor.set(speed);
     }
     
     public double getRate() {

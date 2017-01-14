@@ -7,7 +7,7 @@ public class Time{
         startTime = System.currentTimeMillis();
         lastTime = System.currentTimeMillis();
     }
-    private static void update(){
+    public void update(){
         lastTime = System.currentTimeMillis();
     }
     public static double deltaSeconds(){
