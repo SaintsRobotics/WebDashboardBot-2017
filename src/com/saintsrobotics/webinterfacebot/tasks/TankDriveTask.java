@@ -1,4 +1,4 @@
-package src.com.saintsrobotics.webinterfacebot.tasks;
+package com.saintsrobotics.webinterfacebot.tasks;
 import com.saintsrobotics.util.task.Task;
 import com.saintsrobotics.util.task.waiters.WaitForFrame;
 import com.saintsrobotics.webinterfacebot.OI;
@@ -18,12 +18,12 @@ public class TankDriveTask extends Task {
 			double coefficient = 0.75 + 0.25*(oi.getDrive(Axis.RT)) - 0.25*(oi.getDrive(Axis.LT));
 			leftValue *= coefficient;
 			rightValue *= coefficient;
-			Motors.get(1, false).set(leftValue);
-			Motors.get(2, false).set(leftValue);
-			Motors.get(3, false).set(leftValue);
-			Motors.get(4, false).set(rightValue);
-			Motors.get(5, false).set(rightValue);
-			Motors.get(6, false).set(rightValue);
+			Motors.get(1, false).setGoal(leftValue);
+			Motors.get(2, false).setGoal(leftValue);
+			Motors.get(3, false).setGoal(leftValue);
+			Motors.get(4, false).setGoal(rightValue);
+			Motors.get(5, false).setGoal(rightValue);
+			Motors.get(6, false).setGoal(rightValue);
 			yield(new WaitForFrame());
 		}
 	}

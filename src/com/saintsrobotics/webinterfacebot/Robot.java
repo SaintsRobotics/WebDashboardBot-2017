@@ -8,6 +8,8 @@ import com.saintsrobotics.util.dash.WebDashboard;
 import com.saintsrobotics.util.task.Task;
 import com.saintsrobotics.util.task.TaskRunner;
 import com.saintsrobotics.webinterfacebot.motors.MotorsWebDashboard;
+import com.saintsrobotics.webinterfacebot.tasks.Ramping;
+import com.saintsrobotics.webinterfacebot.tasks.TankDriveTask;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -29,7 +31,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
     	/*server = new SimpleHTTPServer(8080, new File("./home/lvuser/html"));
     	server.start();*/
-    	try {
+    	/*try {
 			webDashboard = new WebDashboard();
 			webDashboard.start();
 			Robot.log("socket up");
@@ -37,7 +39,7 @@ public class Robot extends IterativeRobot {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	motors = new MotorsWebDashboard(webDashboard);
+    	motors = new MotorsWebDashboard(webDashboard);*/
     	oi = new OI();
     	instance = this;
     }
@@ -50,9 +52,10 @@ public class Robot extends IterativeRobot {
     }
     @Override
     public void teleopInit(){
-    	motors.refresh();
+    	//motors.refresh();
     	runner = new TaskRunner( new Task[]{
-                
+                new Ramping(),
+                new TankDriveTask()
     	});
     }
     /**

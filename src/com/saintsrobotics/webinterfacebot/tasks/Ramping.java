@@ -11,6 +11,7 @@ public class Ramping extends Task {
 		Time time = new Time();
 		while(true) {
 			for (Motor motor : Motors.getMotors()) {
+				if(motor == null) continue;
 				double current = motor.getCurrent();
 				double goal = motor.getGoal();
 				double rate = motor.getRate() * time.deltaSeconds();
