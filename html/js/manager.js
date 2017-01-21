@@ -86,6 +86,11 @@ socket.onmessage = function(data){
 		console.log(data);
 		return;
 	}
+	if(data.type == "log"){
+		data.type = undefined;
+		recordLog(data);
+		return;
+	}
 	var delta;
 	var pointer;
 	if(data.type=="delta"){
@@ -136,4 +141,14 @@ function error(message){
 	console.log("Error: " + message);
 	socket.send(JSON.stringify({type:"error",message:message}));
 }
-
+function recordLog(message){
+	var text = message.text;
+	delete message.text;
+	console.log(text);
+	var css = [];
+	for(var key in message){
+		css.push(key + ":" + message[key] + ";");
+	}
+	console.log(css);
+	console.log("%c"+ text, css.join(" "));
+}
